@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GoBucket menyediakan buket bunga dan hadiah custom sesuai keinginanmu. Pilih paket Basic, Reguler, atau Premium.">
+  <title>GoBucket — Buket Spesial untuk Orang Spesial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #e889a7;
+      --pink-dark: #c9577b;
+      --pink-light: #fff0f4;
+      --cream: #fffaf8;
+      --ink: #292126;
+      --muted: #766b70;
+      --line: #f1dce3;
+      --white: #fff;
+      --shadow: 0 16px 45px rgba(104, 44, 66, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--cream);
+      font-family: "DM Sans", sans-serif; line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .topbar { background: #2a2025; color: #fff5f8; text-align: center; padding: 8px 14px; font-size: .83rem; letter-spacing: .02em; }
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(255,250,248,.94);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(241,220,227,.8);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 1.25rem; }
+    .brand img { width: 55px; height: 55px; object-fit: cover; border-radius: 50%; border: 1px solid var(--line); }
+    .brand span { letter-spacing: -.04em; }
+    .brand em { color: var(--pink-dark); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: #5c4d54; font-size: .94rem; }
+    .nav-links a:hover { color: var(--pink-dark); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 19px; border: 0; border-radius: 999px; font-weight: 700;
+      cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 9px 22px rgba(201,87,123,.2); }
+    .btn-primary { background: var(--pink-dark); color: #fff; }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-outline { border: 1px solid var(--line); background: #fff; color: var(--ink); }
+    .hero { padding: 58px 0 65px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 55px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #ffe7ee; color: #a64364; padding: 7px 13px; border-radius: 999px; font-size: .83rem; font-weight: 700; }
+    h1, h2, h3 { line-height: 1.16; }
+    h1 { font: 700 clamp(2.6rem, 5vw, 4.5rem)/1.08 "Playfair Display", serif; letter-spacing: -.045em; margin: 19px 0; }
+    h1 span { color: var(--pink-dark); }
+    .hero p { max-width: 530px; color: var(--muted); font-size: 1.06rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 25px; color: #75646c; font-size: .85rem; }
+    .trust-row span::before { content: "✓"; color: var(--pink-dark); font-weight: 700; margin-right: 7px; }
+    .hero-art { position: relative; min-height: 430px; display: grid; place-items: center; }
+    .hero-art::before { content: ""; position: absolute; width: min(420px, 100%); aspect-ratio: 1; border-radius: 50%; background: #ffe5ed; }
+    .hero-logo { position: relative; width: min(420px, 100%); aspect-ratio: 1; object-fit: contain; border-radius: 28px; box-shadow: var(--shadow); }
+    .floating-note { position: absolute; right: -4px; bottom: 35px; background: #fff; border: 1px solid var(--line); border-radius: 17px; padding: 13px 17px; box-shadow: var(--shadow); font-size: .9rem; }
+    .floating-note strong { display: block; color: var(--pink-dark); }
+    section { padding: 70px 0; }
+    .section-heading { text-align: center; max-width: 650px; margin: 0 auto 36px; }
+    .section-heading .eyebrow { margin-bottom: 12px; }
+    h2 { font: 700 clamp(2rem, 3.5vw, 3rem)/1.15 "Playfair Display", serif; margin: 0 0 13px; letter-spacing: -.03em; }
+    .section-heading p { color: var(--muted); margin: 0; }
+    .about { background: #fff; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 45px; align-items: center; }
+    .about-mark { background: var(--pink-light); border-radius: 28px; padding: 28px; text-align: center; }
+    .about-mark img { width: min(310px, 100%); border-radius: 18px; }
+    .about-copy p { color: var(--muted); }
+    .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; margin-top: 22px; }
+    .feature { padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: #fffafc; }
+    .feature b { display: block; margin-bottom: 4px; }
+    .feature small { color: var(--muted); }
+    .packages { background: linear-gradient(180deg, #fffaf8, #fff3f6); }
+    .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+    .package-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: 0 7px 24px rgba(104,44,66,.045); display: flex; flex-direction: column; position: relative; }
+    .package-card.featured { border: 2px solid var(--pink); transform: translateY(-8px); box-shadow: var(--shadow); }
+    .popular { position: absolute; top: 13px; left: 13px; background: var(--pink-dark); color: #fff; font-size: .73rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; z-index: 1; }
+    .package-photo { width: 100%; height: 270px; object-fit: cover; display: block; background: var(--pink-light); }
+    .package-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+    .package-body h3 { font: 700 1.55rem "Playfair Display", serif; margin: 0 0 6px; }
+    .price { color: var(--pink-dark); font-size: 1.45rem; font-weight: 700; margin: 3px 0 12px; }
+    .price small { font-size: .78rem; color: var(--muted); font-weight: 500; }
+    .package-body p { color: var(--muted); font-size: .92rem; margin: 0 0 16px; }
+    .package-body ul { padding-left: 19px; margin: 0 0 22px; color: #5f5359; font-size: .9rem; }
+    .package-body li { margin: 5px 0; }
+    .package-body .btn { margin-top: auto; width: 100%; }
+    .custom { background: #2a2025; color: #fff; }
+    .custom-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px; }
+    .custom h2 { color: #fff; }
+    .custom p { color: #e1cfd6; max-width: 620px; }
+    .custom-badge { border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); border-radius: 22px; padding: 25px; }
+    .custom-badge strong { display: block; font: 700 1.7rem "Playfair Display", serif; color: #ffbfd1; margin-bottom: 7px; }
+    .contact { background: #fff; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+    .contact-card { padding: 26px; border: 1px solid var(--line); border-radius: 22px; background: #fffafc; }
+    .contact-card h3 { font: 700 1.45rem "Playfair Display", serif; margin: 0 0 8px; }
+    .contact-card p { color: var(--muted); }
+    .socials { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .order-form { display: grid; gap: 13px; margin-top: 16px; }
+    label { display: block; font-size: .87rem; font-weight: 700; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 12px 13px; border: 1px solid #e8d5dc; border-radius: 12px; outline: none; background: #fff; }
+    input:focus, select:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(232,137,167,.15); }
+    .form-help { font-size: .8rem; color: var(--muted); margin: 0; }
+    footer { padding: 28px 0; background: #21191d; color: #eadde2; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-inner small { color: #b9a6ae; }
+    .footer-links { display: flex; gap: 15px; font-size: .9rem; }
+    .footer-links a:hover { color: #ffbfd1; }
+    @media (max-width: 850px) {
+      .nav { min-height: 68px; }
+      .nav-links { gap: 14px; font-size: .85rem; }
+      .nav-contact { display: none; }
+      .hero-grid, .about-grid, .custom-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 25px; }
+      .hero { padding-top: 42px; }
+      .hero-art { min-height: 340px; }
+      .hero-logo { width: min(330px, 82%); }
+      .hero-art::before { width: min(330px, 82%); }
+      .floating-note { right: 4%; bottom: 15px; }
+      .package-grid { grid-template-columns: 1fr 1fr; }
+      .package-card.featured { transform: none; }
+      .custom-grid { gap: 20px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .topbar { font-size: .75rem; }
+      .brand { font-size: 1.05rem; gap: 7px; }
+      .brand img { width: 43px; height: 43px; }
+      .nav-links { gap: 11px; font-size: .8rem; }
+      .nav-links a:nth-child(2) { display: none; }
+      .hero { padding: 34px 0 44px; }
+      h1 { font-size: 2.65rem; }
+      .hero p { font-size: .98rem; }
+      .hero-art { min-height: 285px; }
+      .hero-logo { width: min(280px, 84%); }
+      .hero-art::before { width: min(280px, 84%); }
+      section { padding: 52px 0; }
+      .feature-list, .package-grid, .contact-grid { grid-template-columns: 1fr; }
+      .package-photo { height: 290px; }
+      .package-card.featured { order: -1; }
+      .floating-note { font-size: .78rem; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Buket custom penuh makna untuk setiap momen spesial ♡</div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#beranda" aria-label="GoBucket beranda">
+        <img src="images/logo.jpg" alt="Logo GoBucket">
+        <span>Go<em>Bucket</em></span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#beranda">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#paket">Paket Buket</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+      <a class="btn btn-primary nav-contact" href="#kontak">Pesan Sekarang</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">🌷 Made with love by GoBucket</span>
+          <h1>Hadiah kecil,<br><span>makna besar.</span></h1>
+          <p>GoBucket hadir untuk membantu kamu memberikan hadiah yang berkesan. Pilih buket favoritmu, tentukan warna dan detail sesuai keinginan, lalu kami bantu wujudkan.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#paket">Lihat Pilihan Buket ↗</a>
+            <a class="btn btn-outline" href="#tentang">Kenali GoBucket</a>
+          </div>
+          <div class="trust-row">
+            <span>Bisa custom</span><span>Mulai Rp25 ribuan</span><span>Pesan via WhatsApp</span>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img class="hero-logo" src="images/logo.jpg" alt="Logo resmi GoBucket dengan buket bunga pink dan hitam">
+          <div class="floating-note">Dibuat spesial untukmu<strong>♡ GoBucket</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="tentang">
+      <div class="container about-grid">
+        <div class="about-mark">
+          <img src="images/logo.jpg" alt="Logo GoBucket">
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">Tentang GoBucket</span>
+          <h2>Buket sesuai ide dan ceritamu.</h2>
+          <p>GoBucket adalah usaha buket dan hadiah kreatif yang mengutamakan sentuhan personal. Kamu bisa memilih tipe buket, warna, gaya wrapping, pita, hingga kartu ucapan sesuai selera dan kebutuhan acara.</p>
+          <p>Untuk ulang tahun, wisuda, kejutan untuk orang tersayang, atau momen spesial lainnya, ceritakan saja ide yang kamu punya kepada kami.</p>
+          <div class="feature-list">
+            <div class="feature"><b>✿ Bisa custom</b><small>Sesuaikan desain dengan keinginanmu.</small></div>
+            <div class="feature"><b>♡ Banyak momen</b><small>Cocok untuk hadiah dan perayaan.</small></div>
+            <div class="feature"><b>🎀 Pilihan paket</b><small>Basic, Reguler, hingga Premium.</small></div>
+            <div class="feature"><b>☏ Mudah dipesan</b><small>Hubungi kami langsung lewat WhatsApp.</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="packages" id="paket">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Temukan buketmu</span>
+          <h2>Pilih paket yang kamu suka</h2>
+          <p>Harga di bawah adalah harga mulai. Desain, ukuran, dan detail custom dapat memengaruhi harga akhir.</p>
+        </div>
+        <div class="package-grid">
+          <article class="package-card">
+            <img class="package-photo" src="images/basic.jpeg" alt="Contoh buket Basic dengan bunga mawar pink">
+            <div class="package-body">
+              <h3>Basic</h3>
+              <div class="price">Mulai Rp25.000 <small>/ buket</small></div>
+              <p>Buket ukuran kecil yang manis untuk hadiah sederhana tetapi tetap berkesan.</p>
+              <ul><li>Desain sederhana dan cantik</li><li>Pilihan warna sesuai ketersediaan</li><li>Bisa request custom</li></ul>
+              <button class="btn btn-outline" type="button" data-package="Basic">Pesan Paket Basic</button>
+            </div>
+          </article>
+          <article class="package-card featured">
+            <span class="popular">Favorit pilihan</span>
+            <img class="package-photo" src="images/regular.jpg" alt="Contoh buket Reguler dengan bunga rajut warna pink">
+            <div class="package-body">
+              <h3>Reguler</h3>
+              <div class="price">Mulai Rp50.000 <small>/ buket</small></div>
+              <p>Rangkaian yang lebih menonjol untuk membuat momen spesial terasa istimewa.</p>
+              <ul><li>Tampilan lebih penuh</li><li>Bisa request warna dan wrapping</li><li>Bisa tambah kartu ucapan</li></ul>
+              <button class="btn btn-primary" type="button" data-package="Reguler">Pesan Paket Reguler</button>
+            </div>
+          </article>
+          <article class="package-card">
+            <img class="package-photo" src="images/premium.jpeg" alt="Contoh buket Premium dengan mawar merah dan wrapping hitam">
+            <div class="package-body">
+              <h3>Premium</h3>
+              <div class="price">Mulai Rp85.000 <small>/ buket</small></div>
+              <p>Untuk hadiah spesial dengan tampilan mewah dan detail yang lebih menawan.</p>
+              <ul><li>Gaya buket lebih eksklusif</li><li>Bisa request tema khusus</li><li>Detail dibicarakan dengan admin</li></ul>
+              <button class="btn btn-outline" type="button" data-package="Premium">Pesan Paket Premium</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="custom">
+      <div class="container custom-grid">
+        <div>
+          <span class="eyebrow">Your idea, our creation</span>
+          <h2>Punya desain sendiri?</h2>
+          <p>Ingin warna tertentu, bentuk yang berbeda, tambahan pita, kartu ucapan, atau buket dengan anggaran khusus? Ceritakan idemu kepada admin GoBucket. Kita diskusikan desain dan harga yang sesuai.</p>
+          <a class="btn btn-primary" href="https://wa.me/6288214959212?text=Halo%20mimin%20GoBucket%2C%20Mau%20tanya%20tanya%20dong" target="_blank" rel="noopener">Konsultasi Custom via WhatsApp ↗</a>
+        </div>
+        <div class="custom-badge">
+          <strong>Custom untukmu ♡</strong>
+          Mulai dari pilihan warna dan wrapping hingga detail hadiah. Harga akhir dikonfirmasi oleh admin berdasarkan permintaanmu.
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontak">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Kami siap membantu</span>
+          <h2>Yuk, wujudkan buket impianmu!</h2>
+          <p>Pilih paket dan isi detail singkat. Tombol di bawah akan membuka WhatsApp dengan pesan yang sudah disiapkan.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Hubungi GoBucket</h3>
+            <p>Untuk bertanya tentang harga, desain custom, atau paket yang lebih premium, silakan hubungi kami.</p>
+            <a class="btn btn-primary" href="https://wa.me/6288214959212?text=Halo%20mimin%20GoBucket%2C%20Mau%20tanya%20tanya%20dong" target="_blank" rel="noopener">Chat WhatsApp</a>
+            <div class="socials">
+              <a class="btn btn-outline" href="https://www.tiktok.com/@gobucket77?_r=1&_t=ZS-9Bcdk0X2rY5" target="_blank" rel="noopener">♪ TikTok</a>
+              <a class="btn btn-outline" href="https://www.instagram.com/gobuckett._?dmpr=M2NkZTlvY3ZrZTUx" target="_blank" rel="noopener">◎ Instagram</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <h3>Pesan paket pilihanmu</h3>
+            <form class="order-form" id="orderForm">
+              <div>
+                <label for="customerName">Nama pelanggan</label>
+                <input id="customerName" name="customerName" type="text" placeholder="Masukkan nama kamu" required>
+              </div>
+              <div>
+                <label for="customerPhone">Nomor WhatsApp kamu</label>
+                <input id="customerPhone" name="customerPhone" type="tel" placeholder="Contoh: 081234567890" required>
+              </div>
+              <div>
+                <label for="packageChoice">Pilih paket</label>
+                <select id="packageChoice" name="packageChoice" required>
+                  <option value="">Pilih paket buket</option>
+                  <option value="Basic">Basic — mulai Rp25.000</option>
+                  <option value="Reguler">Reguler — mulai Rp50.000</option>
+                  <option value="Premium">Premium — mulai Rp85.000</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit">Lanjut Pesan via WhatsApp ↗</button>
+              <p class="form-help">Data ini hanya digunakan untuk menyusun pesan WhatsApp. Pesanan belum dikirim sampai kamu menekan tombol kirim di WhatsApp.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><strong>GoBucket ♡</strong><br><small>Buket spesial untuk orang spesial.</small></div>
+      <div class="footer-links">
+        <a href="#beranda">Beranda</a><a href="#paket">Paket</a><a href="#kontak">Kontak</a>
+      </div>
+      <small>© <span id="year"></span> GoBucket. Dibuat dengan cinta.</small>
+    </div>
+  </footer>
+
+  <script>
+    const whatsappNumber = "6288214959212";
+    const defaultMessage = "Halo mimin GoBucket, Mau tanya tanya dong";
+
+    function openWhatsApp(message) {
+      const url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    document.querySelectorAll("[data-package]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("packageChoice").value = button.dataset.package;
+        document.getElementById("kontak").scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => document.getElementById("customerName").focus({ preventScroll: true }), 450);
+      });
+    });
+
+    document.getElementById("orderForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("customerName").value.trim();
+      const phone = document.getElementById("customerPhone").value.trim();
+      const selectedPackage = document.getElementById("packageChoice").value;
+
+      if (!name || !phone || !selectedPackage) {
+        alert("Mohon lengkapi nama, nomor WhatsApp, dan pilihan paket.");
+        return;
+      }
+
+      const message = [
+        "Halo mimin GoBucket!",
+        "",
+        "Saya ingin memesan buket dengan detail berikut:",
+        "",
+        "Nama: " + name,
+        "Nomor WhatsApp: " + phone,
+        "Paket: " + selectedPackage,
+        "",
+        "Mohon informasi lebih lanjut mengenai pilihan desain dan harga custom. Terima kasih!"
+      ].join("\n");
+
+      openWhatsApp(message);
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
